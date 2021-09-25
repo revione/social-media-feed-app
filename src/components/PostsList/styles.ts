@@ -25,4 +25,14 @@ export const Post = styled.section`
   p {
     margin: 10px 0;
   }
+
+  a {
+    text-decoration: none;
+    color: #926bcf;
+    transition: all 0.25s linear;
+
+    &:hover {
+      color: #351369;
+    }
+  }
 `

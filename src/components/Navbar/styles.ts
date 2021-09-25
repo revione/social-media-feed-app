@@ -13,3 +13,17 @@ export const Nav = styled.nav`
     margin: 0 auto;
   }
 `
+
+export const NavContent = styled.div`
+  margin-bottom: 20px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.25s linear;
+
+    &:hover {
+      color: #351369;
+    }
+  }
+`
