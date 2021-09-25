@@ -1,7 +1,9 @@
 // libraries
+import { Link } from "react-router-dom"
+// hooks
 import { useSelector } from "app/hooks"
 // styles
-import { Wrapper } from "./styles"
+import { Section } from "./styles"
 
 const SinglePost = ({ match }: { match: any }) => {
   const { postId } = match.params
@@ -12,19 +14,22 @@ const SinglePost = ({ match }: { match: any }) => {
 
   if (!post) {
     return (
-      <section>
+      <Section>
         <h2>Post not found!</h2>
-      </section>
+      </Section>
     )
   }
 
   return (
-    <section>
+    <Section>
       <article className="post">
         <h2>{post.title}</h2>
         <p className="post-content">{post.content}</p>
+        <Link to={`/editPost/${post.id}`} className="button">
+          Edit Post
+        </Link>
       </article>
-    </section>
+    </Section>
   )
 }
 

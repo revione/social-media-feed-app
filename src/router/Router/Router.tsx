@@ -10,6 +10,7 @@ import Navbar from "components/Navbar"
 import PostsList from "components/PostsList"
 import AddPost from "components/AddPost"
 import SinglePost from "components/SinglePost"
+import EditPost from "components/EditPost"
 
 const App = () => (
   <Router>
@@ -27,6 +28,7 @@ const App = () => (
           )}
         />
         <Route exact path="/posts/:postId" component={SinglePost} />
+        <Route exact path="/editPost/:postId" component={EditPost} />
         <Redirect to="/" />
       </Switch>
     </div>
