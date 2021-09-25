@@ -6,21 +6,14 @@ import {
 } from "react-router-dom"
 
 import Navbar from "components/Navbar"
+import PostsList from "components/PostsList"
 
 const App = () => (
   <Router>
     <Navbar />
     <div className="App">
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <section>
-              <h2>Welcome to the Redux Essentials example app!</h2>
-            </section>
-          )}
-        />
+        <Route exact path="/" render={() => <PostsList />} />
         <Redirect to="/" />
       </Switch>
     </div>

@@ -1,0 +1,28 @@
+import styled from "styled-components/macro"
+
+export const Section = styled.section`
+  max-width: 799px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    margin-top: 0;
+  }
+`
+
+export const Post = styled.section`
+  border: 1px solid rgb(177, 174, 174);
+  border-radius: 8px;
+
+  padding: 8px;
+
+  margin-bottom: 10px;
+
+  h3 {
+    margin: 0 0 10px;
+  }
+
+  p {
+    margin: 10px 0;
+  }
+`
