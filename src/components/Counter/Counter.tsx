@@ -7,7 +7,7 @@ import {
   decrementByAmount,
   incrementAync,
   decrementAync,
-} from "features/counter/counterSlice"
+} from "features/counter/slice"
 
 const Counter = () => {
   const { value } = useSelector((state) => state.counter)
