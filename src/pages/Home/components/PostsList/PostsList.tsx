@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom"
 // hooks
 import { useSelector } from "app/hooks"
+// actions
+import { selectAllPosts } from "features/posts/slice"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"
@@ -10,7 +12,7 @@ import ReactionButtons from "components/ReactionButtons"
 import { Section, Post, Wrap } from "./styles"
 
 const PostsList = () => {
-  const posts = useSelector((state) => state.posts)
+  const posts = useSelector(selectAllPosts)
 
   // Sort posts in reverse chronological order by datetime string
   const orderedPosts = posts

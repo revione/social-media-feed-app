@@ -1,6 +1,8 @@
 // Ducks pattern
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit"
 import { sub } from "date-fns"
+// Types
+import { RootState } from "app/store"
 
 export interface Post {
   id: string
@@ -80,5 +82,10 @@ const slice = createSlice({
 })
 
 export const { postAdded, postUpdated, reactionAdded } = slice.actions
+
+export const selectAllPosts = (state: RootState) => state.posts
+
+export const selectPostById = (state: RootState, postId: string) =>
+  state.posts.find((post) => post.id === postId)
 
 export default slice.reducer
