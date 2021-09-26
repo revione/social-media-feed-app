@@ -36,3 +36,7 @@ export const Post = styled.section`
     }
   }
 `
+
+export const Wrap = styled.div`
+  display: flex;
+`

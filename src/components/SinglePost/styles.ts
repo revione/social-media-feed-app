@@ -15,3 +15,7 @@ export const Section = styled.div`
     }
   }
 `
+
+export const Wrap = styled.div`
+  display: flex;
+`

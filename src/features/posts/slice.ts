@@ -3,14 +3,27 @@ import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit"
 
 interface Post {
   id: string
+  date: string
   title: string
   content: string
   userId: string
 }
 
 const initialState: Post[] = [
-  { id: "1", title: "First Post!", content: "Hello!", userId: "0" },
-  { id: "2", title: "Second Post", content: "More text", userId: "1" },
+  {
+    id: "1",
+    date: "2021-09-26T08:45:09.197Z",
+    title: "First Post!",
+    content: "Hello!",
+    userId: "0",
+  },
+  {
+    id: "2",
+    date: "2021-09-26T08:45:09.197Z",
+    title: "Second Post",
+    content: "More text",
+    userId: "1",
+  },
 ]
 
 const slice = createSlice({
@@ -25,6 +38,7 @@ const slice = createSlice({
         return {
           payload: {
             id: nanoid(),
+            date: new Date().toISOString(),
             title,
             content,
             userId,
@@ -36,6 +50,7 @@ const slice = createSlice({
       const { id, title, content, userId } = action.payload
       const existingPost = state.find((post) => post.id === id)
       if (existingPost) {
+        existingPost.date = new Date().toISOString()
         existingPost.title = title
         existingPost.content = content
         existingPost.userId = userId
