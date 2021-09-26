@@ -15,6 +15,8 @@ export const Nav = styled.nav`
 `
 
 export const NavContent = styled.div`
+  display: flex;
+  column-gap: 20px;
   margin-bottom: 20px;
 
   a {

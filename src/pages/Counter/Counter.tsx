@@ -1,5 +1,8 @@
+// libraries
 import { useState } from "react"
+// hooks
 import { useSelector, useDispatch } from "app/hooks"
+// actions
 import {
   increment,
   decrement,
@@ -8,16 +11,18 @@ import {
   incrementAync,
   decrementAync,
 } from "features/counter/slice"
+// styles
+import { Wrapper } from "./styles"
 
 const Counter = () => {
   const { value } = useSelector((state) => state.counter)
   const dispatch = useDispatch()
 
-  const [amount, setAmount] = useState(0)
-  const [amountAsync, setamountAsync] = useState(0)
+  const [amount, setAmount] = useState(5)
+  const [amountAsync, setamountAsync] = useState(5)
 
   return (
-    <div>
+    <Wrapper>
       <div>{value}</div>
 
       <div>
@@ -41,6 +46,7 @@ const Counter = () => {
       </div>
       <div>
         <div>Async - increment by amount</div>
+        <div>After 1000 miliseconds</div>
         <input
           type="number"
           onChange={(e) => {
@@ -57,7 +63,7 @@ const Counter = () => {
           </button>
         </div>
       </div>
-    </div>
+    </Wrapper>
   )
 }
 

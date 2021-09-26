@@ -9,9 +9,8 @@ const Navbar = () => (
       <h1>Redux Essentials Example</h1>
 
       <NavContent>
-        <div className="navLinks">
-          <Link to="/">Posts</Link>
-        </div>
+        <Link to="/">Posts</Link>
+        <Link to="/counter">Counter</Link>
       </NavContent>
     </section>
   </Nav>
