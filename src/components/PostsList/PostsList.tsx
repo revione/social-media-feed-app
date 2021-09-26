@@ -5,6 +5,7 @@ import { useSelector } from "app/hooks"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"
+import ReactionButtons from "components/ReactionButtons"
 // styles
 import { Section, Post, Wrap } from "./styles"
 
@@ -27,6 +28,7 @@ const PostsList = () => {
       <Link to={`/posts/${post.id}`} className="button muted-button">
         View Post
       </Link>
+      <ReactionButtons post={post} />
     </Post>
   ))
 

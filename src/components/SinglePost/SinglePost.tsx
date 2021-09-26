@@ -5,6 +5,7 @@ import { useSelector } from "app/hooks"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"
+import ReactionButtons from "components/ReactionButtons"
 // styles
 import { Section, Wrap } from "./styles"
 
@@ -32,6 +33,7 @@ const SinglePost = ({ match }: { match: any }) => {
           <TimeAgo timestamp={post.date} />
         </Wrap>
         <p className="post-content">{post.content}</p>
+        <ReactionButtons post={post} />
         <Link to={`/editPost/${post.id}`} className="button">
           Edit Post
         </Link>
