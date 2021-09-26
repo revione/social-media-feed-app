@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom"
 // hooks
 import { useSelector, useDispatch } from "app/hooks"
 // actions
-import { postUpdated } from "features/posts/slice"
+
+import { postUpdated, selectPostById, Post } from "features/posts/slice"
 // styles
 import { Section } from "./styles"
 
@@ -16,9 +17,7 @@ const EditPost = ({ match }: { match: any }) => {
   const { postId } = match.params
 
   const users = useSelector((state) => state.users)
-  const post = useSelector((state) =>
-    state.posts.find((post) => post.id === postId)
-  )
+  const post = useSelector((state) => selectPostById(state, postId))
 
   const [title, setTitle] = useState(post?.title)
   const [content, setContent] = useState(post?.content)
@@ -35,7 +34,7 @@ const EditPost = ({ match }: { match: any }) => {
   const onSavePostClicked = () => {
     if (title && content && userId) {
       console.log(":: userId : ", userId)
-      dispatch(postUpdated({ id: postId, title, content, userId }))
+      dispatch(postUpdated({ id: postId, title, content, userId } as Post))
       history.push(`/posts/${postId}`)
     }
   }

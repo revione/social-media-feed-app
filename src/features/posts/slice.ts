@@ -21,7 +21,7 @@ const initialReactions = {
   eyes: 0,
 }
 
-const initialState: Post[] = [
+const initialItems: Post[] = [
   {
     id: "1",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
@@ -40,13 +40,28 @@ const initialState: Post[] = [
   },
 ]
 
+type Status = "idle" | "loading" | "succeeded" | "failed"
+type Error = string | null
+
+type InitialState = {
+  items: Post[]
+  status: Status
+  error: Error
+}
+
+const initialState = {
+  items: [...initialItems],
+  status: "idle",
+  error: null,
+}
+
 const slice = createSlice({
   name: "posts",
   initialState,
   reducers: {
     postAdded: {
       reducer(state, action: PayloadAction<Post>) {
-        state.push(action.payload)
+        state.items.push(action.payload)
       },
       prepare(title, content, userId) {
         return {
@@ -63,7 +78,7 @@ const slice = createSlice({
     },
     postUpdated(state, action: PayloadAction<Post>) {
       const { id, title, content, userId } = action.payload
-      const existingPost = state.find((post) => post.id === id)
+      const existingPost = state.items.find((post) => post.id === id)
       if (existingPost) {
         existingPost.date = new Date().toISOString()
         existingPost.title = title
@@ -73,7 +88,7 @@ const slice = createSlice({
     },
     reactionAdded(state, action) {
       const { postId, reaction } = action.payload
-      const existingPost = state.find((post) => post.id === postId)
+      const existingPost = state.items.find((post) => post.id === postId)
       if (existingPost) {
         existingPost.reactions[reaction]++
       }
@@ -83,9 +98,9 @@ const slice = createSlice({
 
 export const { postAdded, postUpdated, reactionAdded } = slice.actions
 
-export const selectAllPosts = (state: RootState) => state.posts
+export const selectAllPosts = (state: RootState) => state.posts.items
 
 export const selectPostById = (state: RootState, postId: string) =>
-  state.posts.find((post) => post.id === postId)
+  state.posts.items.find((post) => post.id === postId)
 
 export default slice.reducer
