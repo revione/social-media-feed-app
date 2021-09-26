@@ -1,6 +1,5 @@
 // libraries
 import React, { useState } from "react"
-import { nanoid } from "@reduxjs/toolkit"
 // hooks
 import { useDispatch } from "app/hooks"
 // actions
@@ -22,13 +21,7 @@ const AddPostForm = () => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(
-        postAdded({
-          id: nanoid(),
-          title,
-          content,
-        })
-      )
+      dispatch(postAdded(title, content))
 
       setTitle("")
       setContent("")

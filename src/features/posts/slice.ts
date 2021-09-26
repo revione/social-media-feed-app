@@ -1,5 +1,5 @@
 // Ducks pattern
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit"
 
 interface Post {
   id: string
@@ -16,8 +16,19 @@ const slice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    postAdded(state, action: PayloadAction<Post>) {
-      state.push(action.payload)
+    postAdded: {
+      reducer(state, action: PayloadAction<Post>) {
+        state.push(action.payload)
+      },
+      prepare(title, content) {
+        return {
+          payload: {
+            id: nanoid(),
+            title,
+            content,
+          },
+        }
+      },
     },
     postUpdated(state, action: PayloadAction<Post>) {
       const { id, title, content } = action.payload
