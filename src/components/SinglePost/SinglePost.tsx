@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom"
 // hooks
 import { useSelector } from "app/hooks"
+// components
+import PostAuthor from "components/PostAuthor"
 // styles
 import { Section } from "./styles"
 
@@ -24,6 +26,7 @@ const SinglePost = ({ match }: { match: any }) => {
     <Section>
       <article className="post">
         <h2>{post.title}</h2>
+        <PostAuthor userId={post.userId} />
         <p className="post-content">{post.content}</p>
         <Link to={`/editPost/${post.id}`} className="button">
           Edit Post

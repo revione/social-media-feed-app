@@ -10,16 +10,19 @@ import { Section } from "./styles"
 
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaChangeEvent = React.ChangeEvent<HTMLTextAreaElement>
+type SelectChangeEvent = React.ChangeEvent<HTMLSelectElement>
 
 const EditPost = ({ match }: { match: any }) => {
   const { postId } = match.params
 
+  const users = useSelector((state) => state.users)
   const post = useSelector((state) =>
     state.posts.find((post) => post.id === postId)
   )
 
   const [title, setTitle] = useState(post?.title)
   const [content, setContent] = useState(post?.content)
+  const [userId, setUserId] = useState(post?.userId)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -27,10 +30,12 @@ const EditPost = ({ match }: { match: any }) => {
   const onTitleChanged = (e: InputChangeEvent) => setTitle(e.target.value)
   const onContentChanged = (e: TextAreaChangeEvent) =>
     setContent(e.target.value)
+  const onAuthorChanged = (e: SelectChangeEvent) => setUserId(e.target.value)
 
   const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(postUpdated({ id: postId, title, content }))
+    if (title && content && userId) {
+      console.log(":: userId : ", userId)
+      dispatch(postUpdated({ id: postId, title, content, userId }))
       history.push(`/posts/${postId}`)
     }
   }
@@ -48,6 +53,17 @@ const EditPost = ({ match }: { match: any }) => {
           value={title}
           onChange={onTitleChanged}
         />
+
+        <label htmlFor="postAuthor">Author:</label>
+        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+          <option value=""></option>
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"

@@ -16,3 +16,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+select {
+  width: 100%;
+  border: 1px solid rgb(177, 174, 174);
+  background: transparent;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+select:focus {
+  box-shadow: 0 0 1px 1px #1714e4;
+}
