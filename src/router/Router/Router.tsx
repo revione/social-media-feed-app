@@ -7,28 +7,20 @@ import {
 } from "react-router-dom"
 // components
 import Navbar from "components/Navbar"
-import PostsList from "components/PostsList"
-import AddPost from "components/AddPost"
-import SinglePost from "components/SinglePost"
-import EditPost from "components/EditPost"
+import Home from "pages/Home"
+import SinglePost from "pages/SinglePost"
+import EditPost from "pages/EditPost"
+import Counter from "pages/Counter"
 
 const App = () => (
   <Router>
     <Navbar />
     <div className="App">
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <>
-              <AddPost />
-              <PostsList />
-            </>
-          )}
-        />
+        <Route exact path="/" component={Home} />
         <Route exact path="/posts/:postId" component={SinglePost} />
         <Route exact path="/editPost/:postId" component={EditPost} />
+        <Route exact path="/counter" component={Counter} />
         <Redirect to="/" />
       </Switch>
     </div>
