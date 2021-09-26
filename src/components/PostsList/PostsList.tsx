@@ -11,7 +11,12 @@ import { Section, Post, Wrap } from "./styles"
 const PostsList = () => {
   const posts = useSelector((state) => state.posts)
 
-  const renderedPosts = posts.map((post) => (
+  // Sort posts in reverse chronological order by datetime string
+  const orderedPosts = posts
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date))
+
+  const renderedPosts = orderedPosts.map((post) => (
     <Post className="post-excerpt" key={post.id}>
       <h3>{post.title}</h3>
       <Wrap>

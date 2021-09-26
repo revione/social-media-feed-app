@@ -1,5 +1,6 @@
 // Ducks pattern
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit"
+import { sub } from "date-fns"
 
 interface Post {
   id: string
@@ -12,14 +13,14 @@ interface Post {
 const initialState: Post[] = [
   {
     id: "1",
-    date: "2021-09-26T08:45:09.197Z",
+    date: sub(new Date(), { minutes: 10 }).toISOString(),
     title: "First Post!",
     content: "Hello!",
     userId: "0",
   },
   {
     id: "2",
-    date: "2021-09-26T08:45:09.197Z",
+    date: sub(new Date(), { minutes: 5 }).toISOString(),
     title: "Second Post",
     content: "More text",
     userId: "1",
