@@ -221,7 +221,7 @@ export const handlers = [
 ]
 
 export const worker = setupWorker(...handlers)
-// worker.printHandlers() // Optional: nice for debugging to see all available route handlers that will be intercepted
+worker.printHandlers() // Optional: nice for debugging to see all available route handlers that will be intercepted
 
 /* Mock Websocket Setup */
 
