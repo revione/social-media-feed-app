@@ -1,9 +1,10 @@
+import React, { useEffect } from "react"
 // libraries
 import { Link } from "react-router-dom"
 // hooks
-import { useSelector } from "app/hooks"
+import { useSelector, useDispatch } from "app/hooks"
 // actions
-import { selectAllPosts } from "features/posts/slice"
+import { selectAllPosts, fetchPosts } from "features/posts/slice"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"
@@ -12,7 +13,17 @@ import ReactionButtons from "components/ReactionButtons"
 import { Section, Post, Wrap } from "./styles"
 
 const PostsList = () => {
+  const dispatch = useDispatch()
   const posts = useSelector(selectAllPosts)
+  const postStatus = useSelector((state) => state.posts.status)
+
+  console.log(":: postStatus : ", postStatus)
+
+  useEffect(() => {
+    if (postStatus === "idle") {
+      dispatch(fetchPosts())
+    }
+  }, [postStatus, dispatch])
 
   // Sort posts in reverse chronological order by datetime string
   const orderedPosts = posts

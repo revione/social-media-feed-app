@@ -1,9 +1,20 @@
 // Ducks pattern
-import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit"
+import {
+  createSlice,
+  PayloadAction,
+  nanoid,
+  createAsyncThunk,
+} from "@reduxjs/toolkit"
 import { sub } from "date-fns"
+// API
+import { client } from "api/client"
 // Types
 import { RootState } from "app/store"
 
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
+  const response = await client.get("/fakeApi/posts")
+  return response.data
+})
 export interface Post {
   id: string
   date: string
@@ -41,7 +52,7 @@ const initialItems: Post[] = [
 ]
 
 type Status = "idle" | "loading" | "succeeded" | "failed"
-type Error = string | null
+type Error = string | null | undefined
 
 type InitialState = {
   items: Post[]
@@ -49,7 +60,7 @@ type InitialState = {
   error: Error
 }
 
-const initialState = {
+const initialState: InitialState = {
   items: [...initialItems],
   status: "idle",
   error: null,
@@ -93,6 +104,21 @@ const slice = createSlice({
         existingPost.reactions[reaction]++
       }
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = "loading"
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = "succeeded"
+        // Add any fetched posts to the array
+        state.items = state.items.concat(action.payload)
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = "failed"
+        state.error = action.error.message
+      })
   },
 })
 
