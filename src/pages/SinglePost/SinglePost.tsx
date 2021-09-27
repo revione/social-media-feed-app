@@ -29,7 +29,7 @@ const SinglePost = ({ match }: { match: any }) => {
       <article className="post">
         <h2>{post.title}</h2>
         <Wrap>
-          <PostAuthor userId={post.userId} />
+          <PostAuthor userId={post.user} />
           <TimeAgo timestamp={post.date} />
         </Wrap>
         <p className="post-content">{post.content}</p>

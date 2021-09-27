@@ -3,7 +3,7 @@ import React, { useState } from "react"
 // hooks
 import { useSelector, useDispatch } from "app/hooks"
 // actions
-import { postAdded } from "features/posts/slice"
+import { addNewPost } from "features/posts/slice"
 // styles
 import { Section } from "./styles"
 
@@ -15,23 +15,32 @@ const AddPostForm = () => {
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users)
 
+  const [addRequestStatus, setAddRequestStatus] = useState("idle")
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [userId, setUserId] = useState("")
 
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
+  const canSave =
+    [title, content, userId].every(Boolean) && addRequestStatus === "idle"
 
   const onTitleChanged = (e: InputChangeEvent) => setTitle(e.target.value)
   const onContentChanged = (e: TextAreaChangeEvent) =>
     setContent(e.target.value)
   const onAuthorChanged = (e: SelectChangeEvent) => setUserId(e.target.value)
 
-  const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(postAdded(title, content, userId))
-
-      setTitle("")
-      setContent("")
+  const onSavePostClicked = async () => {
+    if (canSave) {
+      try {
+        setAddRequestStatus("pending")
+        await dispatch(addNewPost({ title, content, user: userId })).unwrap()
+        setTitle("")
+        setContent("")
+        setUserId("")
+      } catch (err) {
+        console.error("Failed to save the post: ", err)
+      } finally {
+        setAddRequestStatus("idle")
+      }
     }
   }
 

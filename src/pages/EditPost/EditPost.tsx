@@ -20,7 +20,7 @@ const EditPost = ({ match }: { match: any }) => {
 
   const [title, setTitle] = useState(post?.title)
   const [content, setContent] = useState(post?.content)
-  const [userId, setUserId] = useState(post?.userId)
+  const [userId, setUserId] = useState(post?.user)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -33,7 +33,9 @@ const EditPost = ({ match }: { match: any }) => {
   const onSavePostClicked = () => {
     if (title && content && userId) {
       console.log(":: userId : ", userId)
-      dispatch(postUpdated({ id: postId, title, content, userId } as Post))
+      dispatch(
+        postUpdated({ id: postId, title, content, user: userId } as Post)
+      )
       history.push(`/posts/${postId}`)
     }
   }

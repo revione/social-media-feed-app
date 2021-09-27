@@ -21,7 +21,7 @@ const Post = ({ post }: { post: PostType }) => (
   <PostExcerpt key={post.id}>
     <h3>{post.title}</h3>
     <Wrap>
-      <PostAuthor userId={post.userId} />
+      <PostAuthor userId={post.user} />
       <TimeAgo timestamp={post.date} />
     </Wrap>
     <p className="post-content">{post.content.substring(0, 100)}</p>
