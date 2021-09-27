@@ -1,5 +1,16 @@
 // Ducks pattern
-import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit"
+import {
+  createSlice,
+  PayloadAction,
+  nanoid,
+  createAsyncThunk,
+} from "@reduxjs/toolkit"
+import { client } from "api/client"
+
+export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
+  const response = await client.get("/fakeApi/users")
+  return response.data
+})
 
 interface User {
   id: string
@@ -36,6 +47,9 @@ const slice = createSlice({
         existingUser.name = name
       }
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => action.payload)
   },
 })
 
