@@ -17,7 +17,7 @@ export const Section = styled.div`
 
   input,
   textarea {
-    border: 1px solid rgb(177, 174, 174);
+    border: 1px solid #b1aeae;
     border-radius: 8px;
 
     padding: 10px;

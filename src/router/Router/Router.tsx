@@ -12,6 +12,7 @@ import SinglePost from "pages/SinglePost"
 import EditPost from "pages/EditPost"
 import UsersList from "pages/UsersList"
 import User from "pages/User"
+import NotificationsList from "pages/NotificationsList"
 
 import Counter from "pages/Counter"
 
@@ -26,6 +27,7 @@ const App = () => (
         <Route exact path="/users" component={UsersList} />
         <Route exact path="/users/:userId" component={User} />
         <Route exact path="/counter" component={Counter} />
+        <Route exact path="/notifications" component={NotificationsList} />
         <Redirect to="/" />
       </Switch>
     </div>

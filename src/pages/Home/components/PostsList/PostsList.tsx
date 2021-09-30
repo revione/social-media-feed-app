@@ -44,11 +44,6 @@ const PostsList = () => {
     }
   }, [postStatus, dispatch])
 
-  // Sort posts in reverse chronological order by datetime string
-  const orderedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date))
-
   let content
 
   if (postStatus === "loading") {
