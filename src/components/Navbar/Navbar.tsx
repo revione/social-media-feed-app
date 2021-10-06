@@ -1,17 +1,28 @@
 // libraries
 import { Link } from "react-router-dom"
 // hooks
-import { useDispatch } from "app/hooks"
+import { useDispatch, useSelector } from "app/hooks"
 //
-import { fetchNotifications } from "features/notifications/slice"
+import {
+  fetchNotifications,
+  selectAllNotifications,
+} from "features/notifications/slice"
 // styles
-import { Nav, NavContent } from "./styles"
+import { Nav, NavContent, ButtonNotifications } from "./styles"
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const notifications = useSelector(selectAllNotifications)
+  const numUnreadNotifications = notifications.filter((n) => !n.read).length
 
   const fetchNewNotifications = () => {
     dispatch(fetchNotifications())
+  }
+
+  let unreadNotificationsBadge
+
+  if (numUnreadNotifications > 0) {
+    unreadNotificationsBadge = <span>{numUnreadNotifications}</span>
   }
 
   return (
@@ -25,9 +36,9 @@ const Navbar = () => {
           <Link to="/counter">Counter</Link>
           <Link to="/notifications">Notifications</Link>
         </NavContent>
-        <button className="button" onClick={fetchNewNotifications}>
-          Refresh Notifications
-        </button>
+        <ButtonNotifications onClick={fetchNewNotifications}>
+          Refresh Notifications <span>{unreadNotificationsBadge}</span>
+        </ButtonNotifications>
       </section>
     </Nav>
   )

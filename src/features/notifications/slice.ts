@@ -1,19 +1,17 @@
 // libraries
-import {
-  createSlice,
-  PayloadAction,
-  createAsyncThunk,
-  AsyncThunk,
-} from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 // server
 import { client } from "api/client"
 // Types
 import { RootState } from "app/store"
 
-type States = {
-  pending: string
-  rejected: string
-  fulfilled: string
+type Notification = {
+  id: string
+  date: string
+  message: string
+  user: string
+  isNew: boolean
+  read: boolean
 }
 
 export const fetchNotifications = createAsyncThunk(
@@ -31,16 +29,28 @@ export const fetchNotifications = createAsyncThunk(
 
 const notificationsSlice = createSlice({
   name: "notifications",
-  initialState: [] as any[],
-  reducers: {},
+  initialState: [] as Notification[],
+  reducers: {
+    allNotificationsRead(state) {
+      state.forEach((notification) => {
+        notification.read = true
+      })
+    },
+  },
   extraReducers: {
     [fetchNotifications.fulfilled]: (state, action) => {
       state.push(...action.payload)
+      state.forEach((notification) => {
+        // Any notifications we've read are no longer new
+        notification.isNew = !notification.read
+      })
       // Sort with newest first
       state.sort((a, b) => b.date.localeCompare(a.date))
     },
   },
 })
+
+export const { allNotificationsRead } = notificationsSlice.actions
 
 export default notificationsSlice.reducer
 

@@ -1,16 +1,26 @@
 // libraries
-import { useSelector } from "app/hooks"
+import { useLayoutEffect } from "react"
 import { formatDistanceToNow, parseISO } from "date-fns"
+// hooks
+import { useSelector, useDispatch } from "app/hooks"
 // styles
 import { Section, Notification } from "./styles"
 
 import { selectAllUsers } from "features/users/slice"
 
-import { selectAllNotifications } from "features/notifications/slice"
+import {
+  selectAllNotifications,
+  allNotificationsRead,
+} from "features/notifications/slice"
 
 export const NotificationsList = () => {
+  const dispatch = useDispatch()
   const notifications = useSelector(selectAllNotifications)
   const users = useSelector(selectAllUsers)
+
+  useLayoutEffect(() => {
+    dispatch(allNotificationsRead())
+  })
 
   const renderedNotifications = notifications.map((notification) => {
     const date = parseISO(notification.date)
@@ -20,7 +30,7 @@ export const NotificationsList = () => {
     }
 
     return (
-      <Notification key={notification.id} className="notification">
+      <Notification key={notification.id} new={notification.isNew}>
         <div>
           <b>{user.name}</b> {notification.message}
         </div>

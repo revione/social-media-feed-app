@@ -6,9 +6,12 @@ export const Section = styled.div`
   padding: 20px;
 `
 
-export const Notification = styled.div`
+export const Notification = styled.div<{ new: boolean }>`
   padding: 7px 10px;
   border: 1px solid #b1aeae;
   border-radius: 7px;
   margin-bottom: 5px;
+
+  ${({ new: newNotifictaion }) =>
+    newNotifictaion && `background-color: #c2c2ed`}
 `
