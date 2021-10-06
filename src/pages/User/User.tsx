@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 // hooks
 import { useSelector } from "app/hooks"
 // actions
-import { selectUserById } from "features/users/slice"
-import { selectAllPosts } from "features/posts/slice"
+import { selectUserById } from "slices/users"
+import { selectAllPosts } from "slices/posts"
 // styles
 import { Section } from "./styles"
 

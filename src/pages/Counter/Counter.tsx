@@ -10,7 +10,7 @@ import {
   decrementByAmount,
   incrementAync,
   decrementAync,
-} from "features/counter/slice"
+} from "slices/counter"
 // styles
 import { Wrapper } from "./styles"
 

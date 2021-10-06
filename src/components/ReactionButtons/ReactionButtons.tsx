@@ -1,9 +1,9 @@
 // libraries
 import { useDispatch } from "app/hooks"
 // actions
-import { reactionAdded } from "features/posts/slice"
+import { reactionAdded } from "slices/posts"
 // types
-import { Post } from "features/posts/slice"
+import { Post } from "slices/posts"
 // styles
 import { Wrapper } from "./styles"
 

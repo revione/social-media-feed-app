@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 // hooks
 import { useSelector } from "app/hooks"
 // actions
-import { selectPostById } from "features/posts/slice"
+import { selectPostById } from "slices/posts"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"

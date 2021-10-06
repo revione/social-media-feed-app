@@ -3,7 +3,7 @@ import React, { useState } from "react"
 // hooks
 import { useSelector, useDispatch } from "app/hooks"
 // actions
-import { addNewPost } from "features/posts/slice"
+import { addNewPost } from "slices/posts"
 // styles
 import { Section } from "./styles"
 

@@ -4,11 +4,7 @@ import { Link } from "react-router-dom"
 // hooks
 import { useSelector, useDispatch } from "app/hooks"
 // actions
-import {
-  selectAllPosts,
-  fetchPosts,
-  Post as PostType,
-} from "features/posts/slice"
+import { selectAllPosts, fetchPosts, Post as PostType } from "slices/posts"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"

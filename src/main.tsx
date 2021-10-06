@@ -4,7 +4,7 @@ import { Provider } from "react-redux"
 import { store } from "./app/store"
 import "./index.css"
 import Router from "router/Router"
-import { fetchUsers } from "features/users/slice"
+import { fetchUsers } from "slices/users"
 
 import { worker } from "api/server"
 

@@ -6,12 +6,12 @@ import { useSelector, useDispatch } from "app/hooks"
 // styles
 import { Section, Notification } from "./styles"
 
-import { selectAllUsers } from "features/users/slice"
+import { selectAllUsers } from "slices/users"
 
 import {
   selectAllNotifications,
   allNotificationsRead,
-} from "features/notifications/slice"
+} from "slices/notifications"
 
 export const NotificationsList = () => {
   const dispatch = useDispatch()

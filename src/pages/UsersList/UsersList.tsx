@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 // hooks
 import { useSelector } from "app/hooks"
 // actions
-import { selectAllUsers } from "features/users/slice"
+import { selectAllUsers } from "slices/users"
 // styles
 import { Section } from "./styles"
 

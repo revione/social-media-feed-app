@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "app/hooks"
 import {
   fetchNotifications,
   selectAllNotifications,
-} from "features/notifications/slice"
+} from "slices/notifications"
 // styles
 import { Nav, NavContent, ButtonNotifications } from "./styles"
 

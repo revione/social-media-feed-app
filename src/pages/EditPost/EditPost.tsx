@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 // hooks
 import { useSelector, useDispatch } from "app/hooks"
 // actions
-import { postUpdated, selectPostById, Post } from "features/posts/slice"
+import { postUpdated, selectPostById, Post } from "slices/posts"
 // styles
 import { Section } from "./styles"
 
