@@ -13,7 +13,7 @@ import Spinner from "components/Spinner"
 // styles
 import { Section, Post as PostExcerpt, Wrap } from "./styles"
 
-const Post = ({ post }: { post: PostType }) => (
+const Post = React.memo(({ post }: { post: PostType }) => (
   <PostExcerpt key={post.id}>
     <h3>{post.title}</h3>
     <Wrap>
@@ -26,7 +26,7 @@ const Post = ({ post }: { post: PostType }) => (
     </Link>
     <ReactionButtons post={post} />
   </PostExcerpt>
-)
+))
 
 const PostsList = () => {
   const dispatch = useDispatch()
