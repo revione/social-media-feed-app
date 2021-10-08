@@ -4,6 +4,7 @@ import {
   PayloadAction,
   nanoid,
   createAsyncThunk,
+  createSelector,
 } from "@reduxjs/toolkit"
 import { sub } from "date-fns"
 // API
@@ -149,5 +150,10 @@ export const selectAllPosts = (state: RootState) => state.posts.items
 
 export const selectPostById = (state: RootState, postId: string) =>
   state.posts.items.find((post) => post.id === postId)
+
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state: RootState, userId: string) => userId],
+  (posts, userId) => posts.filter((post) => post.user === userId)
+)
 
 export default slice.reducer

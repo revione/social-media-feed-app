@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useSelector } from "app/hooks"
 // actions
 import { selectUserById } from "slices/users"
-import { selectAllPosts } from "slices/posts"
+import { selectPostsByUser } from "slices/posts"
 // styles
 import { Section } from "./styles"
 
@@ -13,10 +13,9 @@ const UserPage = ({ match }: { match: { params: { userId: string } } }) => {
 
   const user = useSelector((state) => selectUserById(state, userId))
 
-  const postsForUser = useSelector((state) => {
-    const allPosts = selectAllPosts(state)
-    return allPosts.filter((post) => post.user === userId)
-  })
+  const postsForUser = useSelector((state) => selectPostsByUser(state, userId))
+
+  console.log(":: times re rendered : ")
 
   return (
     <Section>
