@@ -1,64 +1,39 @@
 // Ducks pattern
 import {
   createSlice,
-  PayloadAction,
-  nanoid,
   createAsyncThunk,
+  createEntityAdapter,
 } from "@reduxjs/toolkit"
 import { client } from "api/client"
 import { RootState } from "app/store"
+
+interface User {
+  firstName: string
+  id: string
+  lastName: string
+  name: string
+  username: string
+}
+
+const usersAdapter = createEntityAdapter<User>()
+
+const initialState = usersAdapter.getInitialState()
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await client.get("/fakeApi/users")
   return response.data
 })
 
-interface User {
-  id: string
-  name: string
-}
-
-const initialState: User[] = [
-  { id: "0", name: "Tianna Jenkins" },
-  { id: "1", name: "Kevin Grant" },
-  { id: "2", name: "Madison Price" },
-]
-
 const slice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    userAdded: {
-      reducer(state, action: PayloadAction<User>) {
-        state.push(action.payload)
-      },
-      prepare(name) {
-        return {
-          payload: {
-            id: nanoid(),
-            name,
-          },
-        }
-      },
-    },
-    userUpdated(state, action: PayloadAction<User>) {
-      const { id, name } = action.payload
-      const existingUser = state.find((user) => user.id === id)
-      if (existingUser) {
-        existingUser.name = name
-      }
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchUsers.fulfilled, (state, action) => action.payload)
+    builder.addCase(fetchUsers.fulfilled, usersAdapter.setAll)
   },
 })
 
-export const { userAdded, userUpdated } = slice.actions
-
-export const selectAllUsers = (state: RootState) => state.users
-
-export const selectUserById = (state: RootState, userId: string) =>
-  state.users.find((user) => user.id === userId)
+export const { selectAll: selectAllUsers, selectById: selectUserById } =
+  usersAdapter.getSelectors((state: RootState) => state.users)
 
 export default slice.reducer

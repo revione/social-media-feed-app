@@ -61,40 +61,6 @@ const initialReactions = {
   eyes: 0,
 }
 
-const initialItems: Post[] = [
-  {
-    id: "1",
-    date: sub(new Date(), { minutes: 10 }).toISOString(),
-    title: "First Post!",
-    content: "Hello!",
-    reactions: initialReactions,
-    user: "0",
-  },
-  {
-    id: "2",
-    date: sub(new Date(), { minutes: 5 }).toISOString(),
-    title: "Second Post",
-    content: "More text",
-    reactions: initialReactions,
-    user: "1",
-  },
-]
-
-type Status = "idle" | "loading" | "succeeded" | "failed"
-type Error = string | null | undefined
-
-type InitialState = {
-  items: Post[]
-  status: Status
-  error: Error
-}
-
-// const initialState: InitialState = {
-//   items: [...initialItems],
-//   status: "idle",
-//   error: null,
-// }
-
 const slice = createSlice({
   name: "posts",
   initialState,

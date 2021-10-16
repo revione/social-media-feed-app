@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { useSelector, useDispatch } from "app/hooks"
 // actions
 import { addNewPost } from "slices/posts"
+import { selectAllUsers } from "slices/users"
 // styles
 import { Section } from "./styles"
 
@@ -13,7 +14,7 @@ type SelectChangeEvent = React.ChangeEvent<HTMLSelectElement>
 
 const AddPostForm = () => {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.users)
+  const users = useSelector(selectAllUsers)
 
   const [addRequestStatus, setAddRequestStatus] = useState("idle")
   const [title, setTitle] = useState("")
