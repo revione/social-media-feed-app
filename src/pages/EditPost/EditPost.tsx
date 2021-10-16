@@ -32,7 +32,6 @@ const EditPost = ({ match }: { match: any }) => {
 
   const onSavePostClicked = () => {
     if (title && content && userId) {
-      console.log(":: userId : ", userId)
       dispatch(
         postUpdated({ id: postId, title, content, user: userId } as Post)
       )

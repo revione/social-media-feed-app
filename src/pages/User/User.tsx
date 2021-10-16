@@ -15,8 +15,6 @@ const UserPage = ({ match }: { match: { params: { userId: string } } }) => {
 
   const postsForUser = useSelector((state) => selectPostsByUser(state, userId))
 
-  console.log(":: times re rendered : ")
-
   return (
     <Section>
       <h2>{user?.name}</h2>

@@ -4,7 +4,15 @@ import { Link } from "react-router-dom"
 // hooks
 import { useSelector, useDispatch } from "app/hooks"
 // actions
-import { selectAllPosts, fetchPosts, Post as PostType } from "slices/posts"
+import {
+  selectAllPosts,
+  fetchPosts,
+  selectPostIds,
+  selectPostById,
+  Post as PostType,
+} from "slices/posts"
+// Types
+import { EntityId } from "@reduxjs/toolkit"
 // components
 import PostAuthor from "components/PostAuthor"
 import TimeAgo from "components/TimeAgo"
@@ -13,23 +21,28 @@ import Spinner from "components/Spinner"
 // styles
 import { Section, Post as PostExcerpt, Wrap } from "./styles"
 
-const Post = React.memo(({ post }: { post: PostType }) => (
-  <PostExcerpt key={post.id}>
-    <h3>{post.title}</h3>
-    <Wrap>
-      <PostAuthor userId={post.user} />
-      <TimeAgo timestamp={post.date} />
-    </Wrap>
-    <p className="post-content">{post.content.substring(0, 100)}</p>
-    <Link to={`/posts/${post.id}`} className="button muted-button">
-      View Post
-    </Link>
-    <ReactionButtons post={post} />
-  </PostExcerpt>
-))
+const Post = React.memo(({ postId }: { postId: EntityId }) => {
+  const post = useSelector((state) => selectPostById(state, postId)) as PostType
+
+  return (
+    <PostExcerpt key={post.id}>
+      <h3>{post.title}</h3>
+      <Wrap>
+        <PostAuthor userId={post.user} />
+        <TimeAgo timestamp={post.date} />
+      </Wrap>
+      <p className="post-content">{post.content.substring(0, 100)}</p>
+      <Link to={`/posts/${post.id}`} className="button muted-button">
+        View Post
+      </Link>
+      <ReactionButtons post={post} />
+    </PostExcerpt>
+  )
+})
 
 const PostsList = () => {
   const dispatch = useDispatch()
+  const orderedPostIds = useSelector(selectPostIds)
   const posts = useSelector(selectAllPosts)
   const postStatus = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
@@ -45,12 +58,9 @@ const PostsList = () => {
   if (postStatus === "loading") {
     content = <Spinner text="Loading..." />
   } else if (postStatus === "succeeded") {
-    // Sort posts in reverse chronological order by datetime string
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date))
-
-    content = orderedPosts.map((post) => <Post key={post.id} post={post} />)
+    content = orderedPostIds.map((postId) => (
+      <Post key={postId} postId={postId} />
+    ))
   } else if (postStatus === "failed") {
     content = <div>{error}</div>
   }
